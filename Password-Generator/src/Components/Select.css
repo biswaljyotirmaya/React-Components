@@ -1,0 +1,48 @@
+.toggle {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: none;
+    width: 3.5rem;
+    height: 2rem;
+    border-radius: 1rem;
+    background-color: #ccc;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .toggle:checked {
+    background-color: #4f46e5;
+  }
+  
+  .swap {
+    display: inline-block;
+    width: 2rem;
+    height: 2rem;
+    text-align: center;
+    line-height: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .swap-on {
+    background-color: #4f46e5;
+    color: #fff;
+  }
+  
+  .swap-off {
+    background-color: #f9fafb;
+    color: #4f46e5;
+    transform: translateX(2.5rem);
+  }
+  
+  .toggle:checked + .swap {
+    transform: translateX(2.5rem);
+  }
+  
