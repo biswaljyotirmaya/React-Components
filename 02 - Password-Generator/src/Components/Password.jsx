@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { MdOutlineContentCopy } from "react-icons/md";
+import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
 import Select from "./Select";
 
 function Password() {
@@ -9,6 +10,7 @@ function Password() {
   const [numbersAllowed, setNumbersAllowed] = useState(false);
   const [symbolsAllowed, setSymbolsAllowed] = useState(false);
   const [password, setPassword] = useState("");
+  const [copied, setCopied] = useState(false);
 
   const generatePassword = useCallback(() => {
     let str = "";
@@ -23,7 +25,6 @@ function Password() {
       pass += str.charAt(char);
     }
     setPassword(pass);
-    console.log(password);
   }, [
     length,
     uppercaseAllowed,
@@ -32,8 +33,17 @@ function Password() {
     symbolsAllowed,
   ]);
 
+  const handleCopy = () => {
+    window.navigator.clipboard.writeText(password);
+  };
+
   return (
     <div className="bg-[#0a0e31] w-96 rounded-xl p-6 text-white">
+      {copied && (
+        <p className="text-green-500 absolute top-4 text-center bg-[#0a0e31] p-4 rounded-lg text-lg font-semibold flex items-center ml-16">
+          <IoCheckmarkDoneCircleSharp size={25}/>Copied to clipbord
+        </p>
+      )}
       <h2 className="text-3xl font-semibold my-4">Password Generator</h2>
       <div className="flex items-center">
         <input
@@ -45,13 +55,23 @@ function Password() {
           readOnly
           className="text-orange-700 bg-[#1D2141] text-lg px-4 outline-none  h-10 rounded-lg w-[80%] mr-8 overflow-hiddens"
         />
-        <button>
-          <MdOutlineContentCopy size={25} className="hover:text-gray-400" />
+        <button
+          onClick={() => {
+            handleCopy;
+            setCopied(true);
+            setTimeout(() => {
+              setCopied(false);
+            }, 1000);
+          }}
+          className="active:text-green-300"
+        >
+          <MdOutlineContentCopy
+            size={25}
+            className="hover:text-gray-400 active:text-green-500"
+          />
         </button>
       </div>
-
       <p className="mt-2">Length: {length}</p>
-
       <div className="flex justify-evenly  items-center h-12 bg-[#1D2141] rounded px-6">
         <p>6</p>
         <input
@@ -89,7 +109,6 @@ function Password() {
           setCheck={setSymbolsAllowed}
         />
       </div>
-
       <button
         className="text-center bg-gradient-to-r from-sky-500 to-indigo-500  h-12 w-full my-2 rounded font-semibold text-xl transition hover:from-[#545fb1] hover:to-[#303c97] hover:text-[#6478fa] duration-2000 "
         onClick={generatePassword}
