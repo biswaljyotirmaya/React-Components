@@ -49,7 +49,7 @@ function InputCurrency({
         <p className="mb-4 text-lg ">Currency Type</p>
         <select
           value={selectCurrency}
-          onChange={handleCurrencyChange} 
+          onChange={handleCurrencyChange}  
           className="outline-none h-10 px-4 p-2 text-lg font-semibold  bg-gray-200 text-black rounded-full cursor-pointer"
         >
           {currencyOptions.map((currency) => (
